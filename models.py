@@ -1,0 +1,17 @@
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
+db = SQLAlchemy()
+
+class Movie(db.model):
+    """Movie Model - represents movie table in
+    database"""
+    id = db.Column(db.Integer, primary = True)
+    title = db.Column(db.String(200), nullable = False)
+    year = db.Column(db.Integer)
+    genre = db.Column(db.String(50))
+    director = db.Column(db.String(100))
+    rating = db.Column(db.Float)
+    description = db.Column(db.Text)
+    poster_url = db.Column(db.String(500))
+    created_at = db.Column(db.DateTime, default = datetime.utcnow, default=lambda:datetime.now(timezone.utc))
+    
