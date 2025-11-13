@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Movie
-from sample_movies import movies
+from lesson_1.sample_movies import movies
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dev-secret-key-change-in-production'
@@ -39,13 +39,14 @@ def load_initial_movies():
                     title = "Inception",
                     year = 2010,
                     genre = 'Sci-Fi',
-                    
+
                 )
             ]
 
 @app.route('/')
 def index():
     """Homepage with hero section"""
+    movies = Movie.query.limit(4).all
     return render_template('index.html', movies=movies)
 
 
