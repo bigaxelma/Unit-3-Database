@@ -125,8 +125,31 @@ def add_movie():
     """Add a new movie to the database"""
     if request.method == 'POST':
     #We Will add this next
-        pass
-    
+        #request.form.get()
+        title = request.form.get('title')
+        year = request.form.get('year', type=int)
+        genre = request.form.get('genre')
+        director = request.form.get('director')
+        rating = request.form.get('rating', type=float)
+        description = request.form.get('description')
+        poster_url = request.form.get('poster_url')
+        if not poster_url:
+            poster_url=f"https://placehold.co/300*450/gray/white?text={title}"
+
+        new_movie= Movie(
+            title=title,
+            year=year,
+            genre=genre,
+            director=director,
+            rating=rating,
+            description=description,
+            poster_url=poster_url
+        )
+        
+        db.session.add(new_movie)
+        db.session.commit()
+
+    return redirect(url_for('movies'))
     #If Get request just show the form
     return render_template("add_movie.html")
 
